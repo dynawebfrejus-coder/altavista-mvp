@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const fakeEvents = [
   {
     id: "afterwork-bcn",
@@ -30,36 +32,38 @@ const fakeEvents = [
 
 export default function AgendaPage() {
   return (
-    <div className="min-h-screen bg-black text-zinc-50 px-4 pt-6 pb-20">
-      <header className="mb-4">
-        <h1 className="text-xl font-semibold">Agenda des événements</h1>
-        <p className="text-xs text-zinc-400">
+    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans p-5 pb-24">
+      <header className="mb-5">
+        <h1 className="text-2xl font-bold">Agenda des événements</h1>
+        <p className="text-sm text-gray-500 mt-1">
           Rencontres locales, en petit comité, sans démarchage massif.
         </p>
       </header>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {fakeEvents.map((event) => (
-          <article
-            key={event.id}
-            className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 text-sm"
-          >
-            <div className="flex items-baseline justify-between gap-2">
-              <h2 className="font-medium">{event.title}</h2>
-              <span className="text-[11px] text-zinc-400">{event.type}</span>
-            </div>
-            <p className="mt-1 text-xs text-zinc-400">
-              {event.date} • {event.city}
-            </p>
-            <p className="mt-1 text-xs text-zinc-400">
-              Capacité : {event.capacity}
-            </p>
-            <p className="mt-2 text-xs text-zinc-300">{event.languages}</p>
+          <Link key={event.id} href={`/event/${event.id}`}>
+            <article className="rounded-xl border border-gray-200 bg-white shadow-sm p-4 text-sm cursor-pointer hover:shadow-md transition">
+              <div className="flex items-baseline justify-between gap-2">
+                <h2 className="font-semibold">{event.title}</h2>
+                <span className="text-[11px] px-2 py-1 rounded-full bg-blue-50 text-blue-700">
+                  {event.type}
+                </span>
+              </div>
 
-            <button className="mt-3 w-full rounded-full bg-zinc-100 text-black py-2 text-xs font-medium hover:bg-white transition-colors">
-              Je participe
-            </button>
-          </article>
+              <p className="mt-1 text-xs text-gray-500">
+                📅 {event.date} • 📍 {event.city}
+              </p>
+              <p className="mt-1 text-xs text-gray-500">
+                👥 Capacité : {event.capacity}
+              </p>
+              <p className="mt-2 text-xs text-gray-700">{event.languages}</p>
+
+              <button className="mt-3 w-full rounded-full bg-blue-600 text-white py-2 text-xs font-semibold hover:bg-blue-700 transition-colors">
+                Je participe
+              </button>
+            </article>
+          </Link>
         ))}
       </div>
     </div>
